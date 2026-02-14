@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, MessageSquare, Search, MapPin, Zap, Music, Crown, Trash2 } from 'lucide-react';
+import { Users, MessageSquare, Search, MapPin, Zap, Music, Crown, Trash2, LogOut } from 'lucide-react';
 import { cn, SQUAD_MEMBERS } from '../utils/constants';
 import { useTheme } from '../ThemeContext';
 
-export const SocialView = ({ events, onChatWith, onJoinEvent, onOpenEventChat, onDeleteEvent, currentUser }) => {
+export const SocialView = ({ events, onChatWith, onJoinEvent, onLeaveEvent, onOpenEventChat, onDeleteEvent, currentUser }) => {
     const { theme } = useTheme();
 
     return (
@@ -144,12 +144,22 @@ export const SocialView = ({ events, onChatWith, onJoinEvent, onOpenEventChat, o
                         </div>
 
                         <div className="flex gap-2">
-                            <button
-                                onClick={() => onJoinEvent?.(event.id)}
-                                className="flex-1 py-2 rounded-xl bg-[var(--text-primary)] text-[var(--bg-page)] text-xs font-bold hover:opacity-90 transition shadow-lg shadow-[var(--accent-primary)]/20"
-                            >
-                                Join Vibe
-                            </button>
+                            {currentUser?.id && event.attendees?.includes(currentUser.id) ? (
+                                <button
+                                    onClick={() => onLeaveEvent?.(event.id)}
+                                    className="flex-1 py-2 rounded-xl bg-orange-500/20 text-orange-500 border border-orange-500/30 text-xs font-bold hover:bg-orange-500 hover:text-white transition flex items-center justify-center gap-2"
+                                >
+                                    <LogOut className="w-4 h-4" />
+                                    Leave
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => onJoinEvent?.(event.id)}
+                                    className="flex-1 py-2 rounded-xl bg-[var(--text-primary)] text-[var(--bg-page)] text-xs font-bold hover:opacity-90 transition shadow-lg shadow-[var(--accent-primary)]/20"
+                                >
+                                    Join Vibe
+                                </button>
+                            )}
                             <button
                                 onClick={() => onOpenEventChat?.(event)}
                                 className="w-10 py-2 rounded-xl bg-[var(--bg-card-hover)] text-[var(--text-primary)] border border-[var(--border-color)] hover:bg-[var(--accent-primary)] hover:text-white transition flex items-center justify-center"

@@ -203,6 +203,18 @@ export default function App() {
     }
   };
 
+  const handleLeaveEvent = async (eventId) => {
+    if (!currentUser) return setShowAuthModal(true);
+    try {
+      await events.leave(eventId);
+      addNotification('Left the vibe! 👋');
+      fetchEvents();
+    } catch (e) {
+      addNotification('Could not leave event', 'error');
+      console.error(e);
+    }
+  };
+
   const handleDeleteEvent = async (eventId) => {
     if (!currentUser) return setShowAuthModal(true);
     try {
@@ -407,7 +419,7 @@ export default function App() {
               )}
               {activeTab === 'social' && (
                 <div className="pt-20 lg:pt-10 px-4 h-full w-full max-w-[1600px] mx-auto">
-                  <SocialView events={eventsData} onChatWith={handleChatWith} onJoinEvent={handleJoinEvent} onOpenEventChat={openEventChat} onDeleteEvent={handleDeleteEvent} currentUser={currentUser} />
+                  <SocialView events={eventsData} onChatWith={handleChatWith} onJoinEvent={handleJoinEvent} onLeaveEvent={handleLeaveEvent} onOpenEventChat={openEventChat} onDeleteEvent={handleDeleteEvent} currentUser={currentUser} />
                 </div>
               )}
               {activeTab === 'chat' && (
