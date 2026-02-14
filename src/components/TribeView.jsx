@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, MessageSquare, UserPlus, Sparkles, Crown, Check } from 'lucide-react';
+import { Search, MessageSquare, UserPlus, Sparkles, Crown, Check, Filter, X } from 'lucide-react';
 import { social } from '../utils/database';
 import { cn, MOCK_TRIBE } from '../utils/constants';
 
@@ -8,6 +8,7 @@ export const TribeView = ({ currentUser, onChatWith }) => {
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sentRequests, setSentRequests] = useState(new Set());
+    const [selectedInterest, setSelectedInterest] = useState(null);
 
     const handleAddFriend = async (userId) => {
         try {
@@ -35,7 +36,26 @@ export const TribeView = ({ currentUser, onChatWith }) => {
         if (currentUser) fetchMatches();
     }, [currentUser]);
 
-    const hasMatches = matches.length > 0;
+    // Get all unique interests from matches
+    const allInterests = useMemo(() => {
+        const interestSet = new Set();
+        matches.forEach(user => {
+            (user.commonTags || []).forEach(tag => interestSet.add(tag));
+            (user.tags || []).forEach(tag => interestSet.add(tag));
+        });
+        return Array.from(interestSet).sort();
+    }, [matches]);
+
+    // Filter matches based on selected interest
+    const filteredMatches = useMemo(() => {
+        if (!selectedInterest) return matches;
+        return matches.filter(user => 
+            (user.commonTags || []).includes(selectedInterest) || 
+            (user.tags || []).includes(selectedInterest)
+        );
+    }, [matches, selectedInterest]);
+
+    const hasMatches = filteredMatches.length > 0;
 
     return (
         <motion.div
@@ -57,6 +77,45 @@ export const TribeView = ({ currentUser, onChatWith }) => {
                 </div>
             </div>
 
+            {/* INTEREST FILTER */}
+            {allInterests.length > 0 && (
+                <div className="mb-8">
+                    <div className="flex items-center gap-3 mb-4">
+                        <Filter className="w-5 h-5 text-[var(--text-primary)]" />
+                        <h3 className="text-lg font-bold text-[var(--text-primary)]">
+                            Filter by Interest
+                            <span className="ml-2 text-sm font-normal text-[var(--text-secondary)]">
+                                ({filteredMatches.length} {filteredMatches.length === 1 ? 'match' : 'matches'})
+                            </span>
+                        </h3>
+                        {selectedInterest && (
+                            <button
+                                onClick={() => setSelectedInterest(null)}
+                                className="ml-auto px-3 py-1 rounded-lg bg-[var(--bg-card-hover)] border border-[var(--border-color)] text-xs font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition flex items-center gap-2"
+                            >
+                                <X className="w-3 h-3" /> Clear Filter
+                            </button>
+                        )}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {allInterests.map(interest => (
+                            <button
+                                key={interest}
+                                onClick={() => setSelectedInterest(interest === selectedInterest ? null : interest)}
+                                className={cn(
+                                    "px-4 py-2 rounded-xl font-bold text-sm transition-all duration-200",
+                                    selectedInterest === interest
+                                        ? "bg-gradient-to-r from-vibe-purple to-vibe-cyan text-white shadow-lg shadow-vibe-purple/20"
+                                        : "bg-[var(--surface-glass)] border border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]"
+                                )}
+                            >
+                                #{interest}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {/* MATCH GRID */}
             {loading ? (
                 <div className="flex items-center justify-center h-64">
@@ -64,7 +123,7 @@ export const TribeView = ({ currentUser, onChatWith }) => {
                 </div>
             ) : hasMatches ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {matches.map((user, i) => (
+                    {filteredMatches.map((user, i) => (
                         <motion.div
                             key={user.id}
                             initial={{ opacity: 0, y: 20 }}
@@ -129,13 +188,27 @@ export const TribeView = ({ currentUser, onChatWith }) => {
                     <div className="w-24 h-24 rounded-full bg-[var(--surface-glass)] flex items-center justify-center mb-6">
                         <Search className="w-10 h-10 text-[var(--text-secondary)] opacity-50" />
                     </div>
-                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">No Tribe Found Yet</h3>
+                    <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
+                        {selectedInterest ? `No matches for #${selectedInterest}` : 'No Tribe Found Yet'}
+                    </h3>
                     <p className="text-[var(--text-secondary)] max-w-md mx-auto mb-6">
-                        Try adding more tags to your profile! Or wait for other students to join with similar interests.
+                        {selectedInterest 
+                            ? 'Try selecting a different interest or clear the filter to see all matches.'
+                            : 'Try adding more tags to your profile! Or wait for other students to join with similar interests.'
+                        }
                     </p>
-                    <button className="px-6 py-2 rounded-xl bg-vibe-purple text-white font-bold">
-                        Update My Tags
-                    </button>
+                    {selectedInterest ? (
+                        <button 
+                            onClick={() => setSelectedInterest(null)}
+                            className="px-6 py-2 rounded-xl bg-vibe-purple text-white font-bold hover:opacity-90 transition"
+                        >
+                            Clear Filter
+                        </button>
+                    ) : (
+                        <button className="px-6 py-2 rounded-xl bg-vibe-purple text-white font-bold">
+                            Update My Tags
+                        </button>
+                    )}
                 </div>
             )}
         </motion.div>

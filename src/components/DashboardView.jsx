@@ -124,23 +124,6 @@ const MusicWidget = ({ isPlaying, setIsPlaying }) => {
     );
 };
 
-const StatCard = ({ label, value, icon: Icon, color, delay }) => (
-    <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay, type: "spring" }}
-        className="flex items-center gap-4 p-4 rounded-[2rem] bg-[var(--surface-glass)] border border-[var(--border-color)]"
-    >
-        <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner", color)}>
-            <Icon className="w-6 h-6 text-white" />
-        </div>
-        <div>
-            <p className="text-xs font-bold text-[var(--text-secondary)] uppercase">{label}</p>
-            <p className="text-2xl font-bold text-[var(--text-primary)] font-display">{value}</p>
-        </div>
-    </motion.div>
-);
-
 export const DashboardView = ({
     locations,
     events,
@@ -197,11 +180,6 @@ export const DashboardView = ({
                         </span>
                     </h1>
                     <p className="mt-4 text-[var(--text-secondary)] font-medium text-lg italic opacity-80">{theme.subtitle}</p>
-                </div>
-
-                <div className="flex gap-4">
-                    <StatCard label="Vibe Score" value="98" icon={Zap} color="bg-amber-500" delay={0.2} />
-                    <StatCard label="Friends" value="12" icon={Users} color="bg-emerald-500" delay={0.3} />
                 </div>
             </motion.div>
 
