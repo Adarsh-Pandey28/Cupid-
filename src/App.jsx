@@ -184,8 +184,17 @@ export default function App() {
   const handleJoinEvent = async (eventId) => {
     if (!currentUser) return setShowAuthModal(true);
     try {
+      const event = eventsData.find(e => e.id === eventId);
       await events.join(eventId);
       addNotification('Joined the vibe! ✌️');
+      
+      // Automatically create event chat channel
+      if (event) {
+        const channelId = `event-${event.id}`;
+        const channelLabel = `${event.title} Chat`;
+        setDmChannels((prev) => (prev.some((ch) => ch.id === channelId) ? prev : [...prev, { id: channelId, label: channelLabel }]));
+        addNotification(`Event chat created: ${event.title}`);
+      }
       fetchEvents();
     } catch (e) {
       addNotification('Could not join vibe', 'error');

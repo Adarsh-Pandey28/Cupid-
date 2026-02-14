@@ -45,7 +45,7 @@ const createNoopClient = () => {
 let supabase;
 if (!supabaseUrl || !supabaseAnonKey) {
     console.error(
-        '[Cupid] Missing Supabase environment variables. '
+        '[Cupid] Missing Supabase environment variables. ' +
         'Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file. ' +
         'Running in no-op mode so UI can still render.'
     );

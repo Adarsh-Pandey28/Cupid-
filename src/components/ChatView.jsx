@@ -15,7 +15,8 @@ import {
     Hash,
     Image,
     AtSign,
-    LogOut
+    LogOut,
+    Calendar
 } from 'lucide-react';
 import { cn, DEFAULT_CHAT_CHANNELS } from '../utils/constants';
 import { chat } from '../utils/database';
@@ -36,6 +37,7 @@ export const ChatView = ({ currentUser, activeChannel, setActiveChannel, channel
     const activeChannelObj = channelList.find((ch) => ch.id === activeChannel);
     const activeChannelLabel = activeChannelObj?.label || activeChannel;
     const isCustom = activeChannel?.startsWith('dm-') || activeChannel?.startsWith('event-');
+    const isEventChat = activeChannel?.startsWith('event-');
 
     // Audio refs
     const sendSound = useRef(new Audio('/sounds/message_sent.mp3'));
@@ -184,6 +186,7 @@ export const ChatView = ({ currentUser, activeChannel, setActiveChannel, channel
                     {channelList.map((channel) => {
                         const isActive = activeChannel === channel.id;
                         const isPrivate = channel.id?.startsWith('dm-');
+                        const isEvent = channel.id?.startsWith('event-');
                         const isCustomSidebar = channel.id?.startsWith('dm-') || channel.id?.startsWith('event-');
 
                         return (
@@ -205,16 +208,16 @@ export const ChatView = ({ currentUser, activeChannel, setActiveChannel, channel
                                 <div className={cn(
                                     "w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all",
                                     isActive
-                                        ? "bg-vibe-cyan text-black shadow-[0_0_10px_rgba(6,182,212,0.5)]"
+                                        ? isEvent ? "bg-amber-500/20 text-amber-400 shadow-[0_0_10px_rgba(251,146,60,0.5)]" : "bg-vibe-cyan text-black shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                                         : "bg-[var(--surface-highlight)] text-[var(--text-secondary)] group-hover:bg-[var(--bg-card-hover)] group-hover:text-[var(--text-primary)]"
                                 )}>
-                                    {isPrivate ? <Users className="w-3.5 h-3.5" /> : <Hash className="w-3.5 h-3.5" />}
+                                    {isEvent ? <Calendar className="w-3.5 h-3.5" /> : isPrivate ? <Users className="w-3.5 h-3.5" /> : <Hash className="w-3.5 h-3.5" />}
                                 </div>
 
                                 <div className="flex-1 min-w-0">
                                     <div className="flex justify-between items-center pr-1">
                                         <span className={cn("font-bold truncate text-sm", isActive ? "text-[var(--text-primary)]" : "text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]")}>{channel.label}</span>
-                                        {isActive && <span className="w-1.5 h-1.5 rounded-full bg-vibe-cyan animate-pulse" />}
+                                        {isActive && <span className={cn("w-1.5 h-1.5 rounded-full animate-pulse", isEvent ? "bg-amber-400" : "bg-vibe-cyan")} />}
                                         {isCustomSidebar && (
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); onLeaveChannel?.(channel.id); }}
@@ -262,12 +265,15 @@ export const ChatView = ({ currentUser, activeChannel, setActiveChannel, channel
 
                             <div className="flex flex-col">
                                 <h2 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
-                                    <span className="text-vibe-cyan text-lg select-none">{isCustom ? '@' : '#'}</span>
+                                    {isEventChat ? (
+                                        <Calendar className="w-5 h-5 text-amber-400" />
+                                    ) : (
+                                        <span className="text-vibe-cyan text-lg select-none">{isCustom ? '@' : '#'}</span>
+                                    )}
                                     {activeChannelLabel}
                                 </h2>
                                 <p className="text-[10px] text-[var(--text-secondary)] font-medium font-mono uppercase tracking-wide">
-                                    {messages.length} Messages • Encrypted
-                                </p>
+                                    {isEventChat ? '📅 Event Chat' : `${messages.length} Messages • Encrypted`}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-1">
