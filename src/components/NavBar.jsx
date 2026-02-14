@@ -118,7 +118,7 @@ export const NavBar = ({ active, setTab, currentUser, onOpenProfile, onCreateVib
 
 
             {/* MOBILE NAV: Floating Glass Bar */}
-            <nav role="navigation" aria-label="Mobile navigation" className={cn("fixed bottom-6 left-4 right-4 h-20 bg-card/90 backdrop-blur-3xl border border-border flex items-center justify-between px-6 lg:hidden z-50 shadow-2xl obsidian-card overflow-visible", theme.mobileNavShape)}>
+            <nav role="navigation" aria-label="Mobile navigation" className={cn("fixed bottom-4 left-4 right-4 h-20 bg-card/90 backdrop-blur-3xl border border-border flex items-center justify-between px-4 sm:px-6 lg:hidden z-50 shadow-2xl obsidian-card overflow-visible safe-bottom", theme.mobileNavShape)}>
                 {navItems.map((item) => {
                     if (item.isAction) {
                         return (

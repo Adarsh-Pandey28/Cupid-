@@ -325,7 +325,7 @@ export default function App() {
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 100, opacity: 0 }}
-              className="fixed bottom-24 lg:bottom-10 right-10 z-50 px-6 py-4 bg-[#1a1a1f] backdrop-blur-xl rounded-full border border-vibe-purple/50 flex items-center gap-4 shadow-[0_0_30px_rgba(139,92,246,0.2)]"
+              className="fixed bottom-28 lg:bottom-10 right-4 lg:right-10 left-4 lg:left-auto z-50 px-4 lg:px-6 py-3 lg:py-4 bg-[#1a1a1f] backdrop-blur-xl rounded-2xl lg:rounded-full border border-vibe-purple/50 flex items-center gap-3 lg:gap-4 shadow-[0_0_30px_rgba(139,92,246,0.2)]"
             >
               <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#4ade80]" />
               <span className="font-bold text-sm">Session Active: {activeCheckin.locationName}</span>
@@ -384,7 +384,7 @@ export default function App() {
               )}
               {activeTab === 'chat' && (
                 // Chat fills height but respects nav padding
-                <div className="h-[100vh] pt-20 lg:pt-0 px-4 w-full max-w-[1600px] mx-auto flex flex-col justify-center">
+                <div className="min-h-screen pt-20 pb-24 lg:pt-0 lg:pb-0 px-4 w-full max-w-[1600px] mx-auto flex flex-col justify-center">
                   <ChatView currentUser={currentUser} activeChannel={activeChannel} setActiveChannel={setActiveChannel} channels={chatChannels} addNotification={addNotification} addNotificationItem={addNotificationItem} onLeaveChannel={handleLeaveChannel} />
                 </div>
               )}

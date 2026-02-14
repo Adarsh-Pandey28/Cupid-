@@ -148,7 +148,7 @@ export const DashboardView = ({
     };
 
     return (
-        <main className="pb-32 lg:pb-12 pt-6 px-4 lg:pl-0 max-w-[1600px] mx-auto font-sans relative">
+        <main className="pb-24 lg:pb-12 pt-6 px-4 lg:pl-0 max-w-[1600px] mx-auto font-sans relative">
 
             {/* YouTube Music Player — rendered off-screen when playing */}
             {isPlaying && (

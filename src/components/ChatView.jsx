@@ -149,7 +149,7 @@ export const ChatView = ({ currentUser, activeChannel, setActiveChannel, channel
     );
 
     return (
-        <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="h-[88vh] flex gap-6 font-sans overflow-hidden pb-6 lg:pb-0 px-4 md:px-0">
+        <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="max-h-[80vh] h-full lg:h-[88vh] flex gap-6 font-sans overflow-hidden pb-2 lg:pb-0 px-4 md:px-0">
 
             {/* CHANNEL LIST */}
             <div className={cn(

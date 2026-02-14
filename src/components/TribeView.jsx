@@ -61,7 +61,7 @@ export const TribeView = ({ currentUser, onChatWith }) => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="h-full pb-20 overflow-y-auto no-scrollbar"
+            className="h-full pb-24 lg:pb-4 overflow-y-auto no-scrollbar"
         >
             {/* HERDER */}
             <div className="mb-8 relative overflow-hidden rounded-[2.5rem] obsidian-card border border-[var(--border-color)] p-8">

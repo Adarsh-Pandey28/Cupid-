@@ -54,7 +54,7 @@ export const SettingsView = ({ currentUser, onLogout, onUpdateProfile }) => {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="pb-32 lg:pb-0 max-w-2xl mx-auto space-y-8"
+            className="pb-24 lg:pb-0 max-w-2xl mx-auto space-y-8"
         >
             {/* Header */}
             <div className="flex items-center gap-6 mb-8 mt-4 md:mt-0 obsidian-card p-8 rounded-[2.5rem] border border-border relative overflow-hidden group">
