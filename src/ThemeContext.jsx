@@ -111,7 +111,7 @@ const THEMES = {
             checkOutBtn: 'Leave',
             viewAllBtn: 'See more →',
             liveTag: '✨ Active Now',
-            systemTag: 'VibeSRM',
+            systemTag: 'Cupid',
         },
         cardHoverEffect: { y: -4, scale: 1.01 },
         pageTransition: { type: 'tween', ease: 'easeOut', duration: 0.3 },
@@ -259,7 +259,7 @@ const ThemeContext = createContext(null);
 export function ThemeProvider({ children }) {
     const [themeId, setThemeId] = useState(() => {
         // Persist theme choice
-        return localStorage.getItem('vibesrm-theme') || 'dark';
+        return localStorage.getItem('cupid-theme') || 'dark';
     });
 
     const themeConfig = THEMES[themeId] || THEMES.dark;
@@ -269,7 +269,7 @@ export function ThemeProvider({ children }) {
         // Remove old body classes, add new
         document.body.classList.remove('theme-cyberpunk', 'theme-solar', 'theme-midnight', 'theme-forest', 'theme-vaporwave', 'theme-obsidian', 'theme-valentine');
         document.body.classList.add(themeConfig.bodyClass);
-        localStorage.setItem('vibesrm-theme', themeId);
+        localStorage.setItem('cupid-theme', themeId);
     }, [themeId, themeConfig.bodyClass]);
 
     const value = {

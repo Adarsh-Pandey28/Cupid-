@@ -37,7 +37,7 @@ export const NavBar = ({ active, setTab, currentUser, onOpenProfile, onCreateVib
                     <div className="p-2 mb-1 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-white/5 shadow-inner">
                         <img
                             src={Logo}
-                            alt="VibeSRM"
+                            alt="Cupid"
                             className="w-8 h-8 object-contain drop-shadow-[0_0_10px_rgba(139,92,246,0.3)]"
                         />
                     </div>

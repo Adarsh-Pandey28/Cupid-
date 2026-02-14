@@ -11,7 +11,7 @@ export class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, errorInfo) {
-        console.error('[VibeSRM] Uncaught Error:', error, errorInfo);
+        console.error('[Cupid] Uncaught Error:', error, errorInfo);
     }
 
     handleReset = () => {
@@ -28,7 +28,7 @@ export class ErrorBoundary extends React.Component {
                         </div>
                         <h1 className="text-3xl font-bold">Something went wrong</h1>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            VibeSRM encountered an unexpected error. This has been logged automatically.
+                            Cupid encountered an unexpected error. This has been logged automatically.
                         </p>
                         {import.meta.env.DEV && this.state.error && (
                             <pre className="text-left text-xs text-red-400 bg-red-950/30 border border-red-500/20 rounded-xl p-4 overflow-auto max-h-40">

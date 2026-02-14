@@ -1,4 +1,4 @@
-// VibeSRM API Service
+// Cupid API Service
 // Connects frontend to backend
 
 import { supabase } from '../supabase';

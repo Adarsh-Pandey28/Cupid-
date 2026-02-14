@@ -48,7 +48,7 @@ Experience the campus through four distinct personalities. The entire UI—color
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/YUVRAJ-SINGH-3178/Cupid-.git
-    cd VibeSRM-main
+    cd Cupid-
     ```
 
 2.  **Install dependencies:**
@@ -121,7 +121,7 @@ Ensure you have **Node.js 18+** (v20+ recommended) and **npm** installed.
 ```bash
 # 1. Clone the nexus
 git clone https://github.com/YUVRAJ-SINGH-3178/Cupid-.git
-cd VibeSRM-main
+cd Cupid-
 
 # 2. Install dependencies
 npm install

@@ -1,6 +1,6 @@
-# 📊 VibeSRM Performance Metrics & Audit
+# 📊 Cupid Performance Metrics & Audit
 
-This document provides a comprehensive technical audit of **VibeSRM**, focusing on build optimization, runtime performance, and real-time synchronization throughput. Data was captured from the production environment deployed on Vercel.
+This document provides a comprehensive technical audit of **Cupid**, focusing on build optimization, runtime performance, and real-time synchronization throughput. Data was captured from the production environment deployed on Vercel.
 
 ---
 

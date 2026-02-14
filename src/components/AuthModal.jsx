@@ -114,7 +114,7 @@ export const AuthModal = ({ isOpen, onClose, onAuth }) => {
                                         className="w-8 h-8 object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]"
                                     />
                                 </div>
-                                <h2 className="text-3xl font-display font-bold text-white tracking-tight">VibeSRM</h2>
+                                <h2 className="text-3xl font-display font-bold text-white tracking-tight">Cupid</h2>
                             </div>
                             <h3 className="text-xl font-bold text-white">
                                 {isLogin ? 'Welcome Back!' : 'Join the Squad'}

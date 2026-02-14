@@ -1,12 +1,12 @@
-# 🏗️ VibeSRM Architecture
+# 🏗️ Cupid Architecture
 
 ## Overview
-VibeSRM is a Single Page Application (SPA) built with React and Vite. It leverages a centralized **Theme Context** to drive a highly dynamic UI and uses **Supabase** for backend services including Authentication, Database, and Realtime subscriptions.
+Cupid is a Single Page Application (SPA) built with React and Vite. It leverages a centralized **Theme Context** to drive a highly dynamic UI and uses **Supabase** for backend services including Authentication, Database, and Realtime subscriptions.
 
 ## 🧱 Core Systems
 
 ### 1. Theming Engine (`ThemeContext.jsx`)
-The heart of VibeSRM's UI is its robust theming engine. Unlike traditional dark/light mode switches, this engine replaces the entire "personality" of the app.
+The heart of Cupid's UI is its robust theming engine. Unlike traditional dark/light mode switches, this engine replaces the entire "personality" of the app.
 -   **State**: Managed via React Context API (`ThemeContext`).
 -   **Persistence**: Saves preference to `localStorage`.
 -   **CSS Variables**: Updates `data-theme` attribute on the `<html>` tag, which triggers CSS variable changes in `index.css`.
